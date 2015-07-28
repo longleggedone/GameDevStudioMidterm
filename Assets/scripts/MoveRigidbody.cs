@@ -4,7 +4,10 @@ using System.Collections;
 public class MoveRigidbody : MonoBehaviour {
 	
 	public float speed = 115f;
+	public float maxSpeed = 500f;
 	public float turnSpeed = 90f;
+
+	public ForceMode forceMode;
 	
 	// FixedUpdate is called once per physics frame
 	void FixedUpdate () {
@@ -15,10 +18,14 @@ public class MoveRigidbody : MonoBehaviour {
 		
 		// transform.Translate (0f, 0f, y * speed * Time.deltaTime );
 		Rigidbody rbody = GetComponent<Rigidbody>();
-		Debug.Log (y);
-		rbody.AddRelativeForce (0f, 0f, y * speed * Time.deltaTime );
+		//Debug.Log (y);
+		rbody.AddRelativeForce (0f, 0f, y * speed * Time.deltaTime, forceMode);
 //		rbody.AddForce (new Vector3(0f,10f,10f));
 		
 		transform.Rotate ( 0f, x * turnSpeed * Time.deltaTime, 0f );
+
+		if(rbody.velocity.magnitude > maxSpeed){
+			rbody.velocity = rbody.velocity.normalized * maxSpeed;
+		}
 	}
 }

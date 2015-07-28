@@ -5,6 +5,8 @@ public class RollRigidbody : MonoBehaviour {
 
 	public float speed = 115f;
 	public float turnSpeed = 90f;
+
+	public ForceMode forceMode;
 	
 	// FixedUpdate is called once per physics frame
 	void FixedUpdate () {
@@ -15,10 +17,21 @@ public class RollRigidbody : MonoBehaviour {
 		
 		// transform.Translate (0f, 0f, y * speed * Time.deltaTime );
 		Rigidbody rbody = GetComponent<Rigidbody>();
-		Debug.Log (y);
-		rbody.AddRelativeForce (y * speed * Time.deltaTime, 0f, 0f );
+		//Debug.Log (y);
+		//rbody.AddRelativeForce ( 0f, y * speed * Time.deltaTime, 0f);
+		rbody.AddRelativeTorque ( 0f, -y * speed * Time.deltaTime, 0f, forceMode);
 		//		rbody.AddForce (new Vector3(0f,10f,10f));
+		//transform.Rotate (0f, rbody.velocity.magnitude, 0f);
+		//transform.RotateAround (transform.position, Vector3.up , -x * turnSpeed * Time.deltaTime);
+
+		//transform.Rotate ( 0f, 0f, -x * turnSpeed * Time.deltaTime);
+		//rbody.AddRelativeForce (0f, 0f, -x * turnSpeed * Time.deltaTime);
+		//rbody.AddTorque ( -x * 10000f * turnSpeed * Time.deltaTime, 0f, 0f);
+
+		//scoring mechanic
+		//if (Input.GetKeyDown(KeyCode.Space)){
+		//	GameLogic.instance.currentScore =+ 1;
 		
-		transform.Rotate ( 0f, 0f, -x * turnSpeed * Time.deltaTime);
 	}
+
 }
